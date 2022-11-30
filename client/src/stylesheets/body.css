@@ -1,0 +1,45 @@
+
+.navbar{
+    background-color: #dfdcdb;
+    color: rgb(131, 105, 107);
+    text-decoration: none;
+
+}
+.navbar_text{
+    
+    text-decoration: none;
+    color: rgb(7, 99, 27);
+
+}
+.navbar_text:hover{
+    text-decoration: none;
+    font-weight: bold;
+
+}
+.login{
+    background-color: rgb(58, 218, 44);
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: 1px solid  rgb(220, 208, 243);
+    color:black
+
+}
+.signup{
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: 1px solid rgb(4, 63, 17);
+
+
+}
+.search{
+    background-color: rgb(58, 218, 44);
+    padding: 10px 20px;
+    margin-left:10px ;
+    border-radius: 5px;
+    border: 1px solid  rgb(220, 208, 243);
+    color:black
+}
+.Ingredient_table{
+    border-radius: 50px;
+    border: 1px solid black;
+}
