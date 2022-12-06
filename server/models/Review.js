@@ -1,26 +1,29 @@
-const { Schema, model } = require('mongoose');
-const dateFormat = require('../utils/dateFormat');
+const { Schema, model } = require("mongoose");
+const dateFormat = require("../utils/dateFormat");
 
 const reviewSchema = new Schema({
   reviewText: {
     type: String,
-    required: 'You need to leave a thought!',
     minlength: 1,
+    required: true,
     maxlength: 280,
     trim: true,
   },
   reviewAuthor: {
     type: String,
-    required: true,
     trim: true,
+  },
+  rating: {
+    type:  Number,
   },
   createdAt: {
     type: Date,
     default: Date.now,
     get: (timestamp) => dateFormat(timestamp),
   },
+
 });
 
-const Review = model('Review', reviewSchema);
+const Reviews = model("Review", reviewSchema);
 
-module.exports = Review;
+module.exports = Reviews;

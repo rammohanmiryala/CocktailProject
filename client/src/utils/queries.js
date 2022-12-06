@@ -14,3 +14,19 @@ export const QUERY_USER = gql`
     }
   }
 `;
+export const QUERY_SINGLE_REVIEW = gql`
+  query getSingleThought($thoughtId: ID!) {
+    thought(thoughtId: $thoughtId) {
+      _id
+      thoughtText
+      thoughtAuthor
+      createdAt
+      comments {
+        _id
+        commentText
+        commentAuthor
+        createdAt
+      }
+    }
+  }
+`;

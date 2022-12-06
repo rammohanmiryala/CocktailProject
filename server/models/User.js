@@ -19,6 +19,18 @@ const userSchema = new Schema({
     required: true,
     minlength: 5,
   },
+  userType: {
+    type: Boolean,
+    default: false,
+  },
+  drinks: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Drink',
+      required: true
+    },
+  ],
+
 });
 
 userSchema.pre('save', async function (next) {
