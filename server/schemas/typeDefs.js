@@ -10,18 +10,20 @@ const typeDefs = gql`
   }
   type Drink {
     _id: ID
-    idDrink: Number
+    drinkId: Int
     createdAt: String
-    # An exclamation point (!) after a declared field's type means "this field's value can never be null.
-    Review: [Review]
+    reviews: [Review]
   }
   type Review {
     _id: ID
     reviewText: String
     reviewAuthor: String
-    rating: Number
+    rating: Int
     createdAt: String
+    drink:Drink
   }
+ 
+
   type Auth {
     token: ID!
     user: User
@@ -30,17 +32,17 @@ const typeDefs = gql`
   type Query {
     users: [User]
     user(username: String!): User
-
     drinks: [Drink]
-    drink(idDrink: Number!): Drink
-
+    drink(drinkId: ID!): Drink
+    reviews: [Review]
     review(reviewId: ID!): Review
-    reviews(username: String): [Review]
+    me: User
   }
 
   type Mutation {
     addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
+    addReview(drinkId:ID!, reviewText: String!,rating: Int): Review
   }
 `;
 

@@ -14,16 +14,20 @@ const reviewSchema = new Schema({
     trim: true,
   },
   rating: {
-    type:  Number,
+    type: Number,
   },
   createdAt: {
     type: Date,
     default: Date.now,
     get: (timestamp) => dateFormat(timestamp),
   },
-
+  drink: {
+    type: Schema.Types.ObjectId,
+    ref: "Drink",
+    
+  },
 });
 
-const Reviews = model("Review", reviewSchema);
+const Review = model("Review", reviewSchema);
 
-module.exports = Reviews;
+module.exports = Review;

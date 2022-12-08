@@ -2,23 +2,21 @@ const { Schema, model } = require("mongoose");
 const dateFormat = require("../utils/dateFormat");
 
 const drinkSchema = new Schema({
-  idDrink: {
-    type: Number,
-    required: true
-
+  drinkId: {
+    type:Number
   },
   createdAt: {
     type: Date,
     default: Date.now,
     get: (timestamp) => dateFormat(timestamp),
   },
-  Reviews: [
+
+  reviews: [
     {
       type: Schema.Types.ObjectId,
-      ref: 'Review'
-    }
-  ]
-
+      ref: "Review",
+    },
+  ],
 });
 
 const Drink = model("Drink", drinkSchema);

@@ -6,9 +6,6 @@ const reviewSeeds = require("./ReviewSeeds.json");
 require("dotenv").config();
 
 db.once("open", async () => {
-
-
-
   try {
     await User.deleteMany({});
     await User.create(userSeeds);
@@ -26,16 +23,31 @@ db.once("open", async () => {
 
   // // bulk create each model
 
-  const Drinks = await Drink.insertMany(drinkSeeds);
-  const Reviews = await Review.insertMany(reviewSeeds);
+  const drinks = await Drink.insertMany(drinkSeeds);
+  const reviews = await Review.insertMany(reviewSeeds);
 
-  for (newReview of Reviews) {
+  for (let newReview of reviews) {
     // randomly add each reviews to a Drinks
-    const tempDrinks = Drinks[Math.floor(Math.random() * Drinks.length)];
-    tempDrinks.Reviews.push(newReview._id);
+    const tempDrinks = drinks[Math.floor(Math.random() * drinks.length)];
+    tempDrinks.reviews.push(newReview._id);
     await tempDrinks.save();
   }
 
   console.log("Seeding complete! 🌱");
   process.exit(0);
 });
+
+//  const drinksSeed = []
+
+// for (var i = 0; i < drinks.length; i++) {
+//   const drink = drinks[i];
+
+//   const review = reviews[ma]
+
+//   drinksSeed.push({
+//     drink,
+
+//   });
+
+// }
+// console.log(drinksSeed);
