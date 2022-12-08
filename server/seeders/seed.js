@@ -8,23 +8,35 @@ require("dotenv").config();
 db.once("open", async () => {
   try {
     await User.deleteMany({});
-    await User.create(userSeeds);
+    await Drink.deleteMany({});
+    await Review.deleteMany({});
 
+    await User.create(userSeeds);
   } catch (err) {
     console.error(err);
     process.exit(1);
   }
 
-  
-//delete existing tables from db
-  
-  await Drink.deleteMany({});
-  await Review.deleteMany({});
+  //delete existing tables from db
 
   // // bulk create each model
 
   const drinks = await Drink.insertMany(drinkSeeds);
   const reviews = await Review.insertMany(reviewSeeds);
+
+  
+
+  for (let i = 0; i < reviewSeeds.length; i++) {
+    const { _id, reviewAuthor } = await Review.create(reviewSeeds[i]);
+    const user = await User.findOneAndUpdate(
+      { username: reviewAuthor },
+      {
+        $addToSet: {
+          drinks: _id,
+        },
+      }
+    );
+  }
 
   for (let newReview of reviews) {
     // randomly add each reviews to a Drinks
@@ -32,7 +44,6 @@ db.once("open", async () => {
     tempDrinks.reviews.push(newReview._id);
     await tempDrinks.save();
   }
-
   console.log("Seeding complete! 🌱");
   process.exit(0);
 });
