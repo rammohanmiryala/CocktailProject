@@ -5,7 +5,6 @@ import "../../stylesheets/body.css";
 
 const SearchCard = ({ drinksData }) => {
 
-  console.log(drinksData)
 
   return (
     <>

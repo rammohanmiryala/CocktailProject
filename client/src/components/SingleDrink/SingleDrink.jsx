@@ -22,11 +22,12 @@ function SingleDrink() {
   const { loading, data } = useQuery(QUERY_DRINK, {
     variables: { drinkId: paramsId },
   });
-
+ 
   
-  const review = data
+  
 
-  // console.log( review)
+
+
 
   useEffect(() => {
     const singleDrink = async () => {
@@ -42,6 +43,7 @@ function SingleDrink() {
     display: "none",
   };
 
+
   
   if (loading) {
     return <div>Loading...</div>;
@@ -53,7 +55,7 @@ function SingleDrink() {
           {details.map((drink) => (
             <Row>
               {/* left section ------------------------------------------------*/}
-              <Col xs={6} lg={6} className="image_center border">
+              <Col xs={6} lg={6} className="image_center">
                 <Figure>
                   <Figure.Image
                     width={500}
@@ -62,13 +64,11 @@ function SingleDrink() {
                     alt="171x180"
                     src={drink.strDrinkThumb}
                   />
-                  <Figure.Caption>
-                    <b>Category</b>: {drink.strCategory}
-                  </Figure.Caption>
+                
                 </Figure>
               </Col>
               {/* right section ------------------------------------------------*/}
-              <Col xs={6} lg={6} className="justify-content-md-start border">
+              <Col xs={6} lg={6} className="justify-content-md-start">
                 <h1>{drink.strDrink}</h1>
 
                 <p>
@@ -220,16 +220,16 @@ function SingleDrink() {
                     )}
                   </Col>
                 </Row>
-
                 <ReviewFrom />
               </Col>
+              <h4> Reviews </h4>
             </Row>
           ))}
 
-          <Col lg={8} className=" border justify-content-md-center">
-            <h2> Reviews </h2>
+          <Col md={12} lg={12} className="flexCenter">
+         
             {/* review is the data assigned  and reviews is  */}
-            <ReviewsList  reviewData={review}/>
+            <ReviewsList  reviewData={data}/>
           </Col>
         </Container>
       </div>
