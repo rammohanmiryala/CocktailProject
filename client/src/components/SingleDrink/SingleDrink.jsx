@@ -1,61 +1,56 @@
+import React, { useState, useEffect } from "react";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
 import Figure from "react-bootstrap/Figure";
 import "../../stylesheets/body.css";
 
-
-import React, { useState, useEffect } from "react";
+import ReviewsList from "../Reviewlist/Reviewlist";
+import ReviewFrom from "../ReviewFrom/ReviewFrom";
 
 import { useParams } from "react-router-dom";
-import { useQuery } from '@apollo/client';
+import { useQuery } from "@apollo/client";
+import { QUERY_DRINK } from "../../utils/queries";
 
-import ReviewsList from "../Reviewslist/Reviewslist"
-import ReviewFrom from "../ReviewFrom/ReviewFrom"
+function SingleDrink() {
+  const [details, setDetails] = useState([]);
+  // use the use params we are taking the id of the drink from url and fetching the data with another url
+  const { id } = useParams();
 
-
-// import { QUERY_SINGLE_REVIEW } from '../utils/queries';
-
-
-function SingleReview() {
-
+  const paramsId = parseInt(id); // the id is string now its changed to integer using  parseInt
+  
+  const { loading, data } = useQuery(QUERY_DRINK, {
+    variables: { drinkId: paramsId },
+  });
 
   
-  const [details, setDetails] = useState([]);
+  const review = data
 
-  const [value, setValue] = React.useState(2);
-
-  let { id } = useParams(); // use the use params we are taking the id of the drink from url and fetching the data with another url
-  const singleDrink = async () => {
-    var requestUrl = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
-    fetch(requestUrl)
-      .then(function (response) {
-        return response.json();
-      })
-      .then(function (data) {
-        setDetails(data.drinks);
-
-
-
-
-
-        
-      });
-  };
+  // console.log( review)
 
   useEffect(() => {
-    singleDrink({ id }); // use effect is to run the function with the parameter
-  });
+    const singleDrink = async () => {
+      var requestUrl = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
+      const response = await fetch(requestUrl);
+      const drink = await response.json();
+      setDetails(drink.drinks);
+    };
+    singleDrink();
+  }, [id]); // use effect is to run the function with the parameter
 
   const divStyle = {
     display: "none",
   };
 
+  
+  if (loading) {
+    return <div>Loading...</div>;
+  }
   return (
     <>
       <div>
-        {details.map((drink) => (
-          <Container className="section_top_margin">
+        <Container className="section_top_margin">
+          {details.map((drink) => (
             <Row>
               {/* left section ------------------------------------------------*/}
               <Col xs={6} lg={6} className="image_center border">
@@ -75,7 +70,7 @@ function SingleReview() {
               {/* right section ------------------------------------------------*/}
               <Col xs={6} lg={6} className="justify-content-md-start border">
                 <h1>{drink.strDrink}</h1>
-          
+
                 <p>
                   <b>Category</b>: {drink.strCategory}
                 </p>
@@ -225,17 +220,21 @@ function SingleReview() {
                     )}
                   </Col>
                 </Row>
-                <ReviewFrom/>
-              </Col>
-              <Col lg={6} className=" border">
-               <ReviewsList/>
+
+                <ReviewFrom />
               </Col>
             </Row>
-          </Container>
-        ))}
+          ))}
+
+          <Col lg={8} className=" border justify-content-md-center">
+            <h2> Reviews </h2>
+            {/* review is the data assigned  and reviews is  */}
+            <ReviewsList  reviewData={review}/>
+          </Col>
+        </Container>
       </div>
     </>
   );
 }
 
-export default SingleReview;
+export default SingleDrink;

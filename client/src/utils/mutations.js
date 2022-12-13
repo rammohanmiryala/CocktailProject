@@ -23,17 +23,3 @@ export const ADD_USER = gql`
     }
   }
 `;
-export const ADD_REVIEW = gql`
-  mutation addReview($reviewText: String!) {
-    addReview(reviewText: $reviewText) {
-      _id
-      reviewText
-      reviewAuthor
-      createdAt
-      comments {
-        _id
-        commentText
-      }
-    }
-  }
-`;

@@ -26,8 +26,18 @@ const reviewSchema = new Schema({
     ref: "Drink",
     
   },
+},{
+  toJSON: {
+    virtuals: true,
+  },
+  id: false,
 });
 
+
+// Create a virtual property `drinkCount` that gets the amount of drinks per post
+reviewSchema.virtual('drinkCount').get(function () {
+  return this.drink.length;
+});
 const Review = model("Review", reviewSchema);
 
 module.exports = Review;

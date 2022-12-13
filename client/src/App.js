@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import {
   ApolloClient,
   InMemoryCache,
@@ -6,21 +7,20 @@ import {
   createHttpLink,
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
-import { BrowserRouter as Router, Route } from "react-router-dom";
-import  "./stylesheets/body.css"
 
 import Home from "./pages/Home";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import SingleReview from "./components/SingleReview/SingleReview";
-
-
+// import { StoreProvider } from './utils/GlobalState';
+import SingleDrink from "./components/SingleDrink/SingleDrink";
+import "./stylesheets/body.css";
 
 // Construct our main GraphQL API endpoint
 const httpLink = createHttpLink({
   uri: "/graphql",
+  cache: new InMemoryCache(),
 });
 
 // Construct request middleware that will attach the JWT token to every request as an `authorization` header
@@ -45,28 +45,28 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
+      <Router>
+        <div className="flex-column justify-flex-start min-100-vh">
       
-        <Router>
-          <div className="flex-column justify-flex-start min-100-vh">
             <Header />
             <div className="container">
-              <Route exact path="/">
-                <Home/>
+              <Route exact path="/" component={Home}>
+                
               </Route>
-              <Route exact path="/login">
-                <Login />
+              <Route exact path="/login" component={Login}>
+               
               </Route>
-              <Route exact path="/signup">
-                <Signup />
+              <Route exact path="/signup" component={Signup}>
+                
               </Route>
-              <Route exact path="/drink/:id" >
-                <SingleReview />
+              <Route exact path="/drink/:id" component={SingleDrink}>
+                
               </Route>
             </div>
             <Footer />
-          </div>
-        </Router>
-      
+         
+        </div>
+      </Router>
     </ApolloProvider>
   );
 }

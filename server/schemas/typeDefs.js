@@ -20,9 +20,8 @@ const typeDefs = gql`
     reviewAuthor: String
     rating: Int
     createdAt: String
-    drink:Drink
+    drink: Drink
   }
- 
 
   type Auth {
     token: ID!
@@ -33,16 +32,16 @@ const typeDefs = gql`
     users: [User]
     user(username: String!): User
     drinks: [Drink]
-    drink(drinkId: ID!): Drink
+    drink(drinkId: Int!): Drink
     reviews: [Review]
-    review(reviewId: ID!): Review
+    review(id: ID!): Review
     me: User
   }
 
   type Mutation {
     addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
-    addReview(drinkId:ID!, reviewText: String!,rating: Int): Review
+    addReview(id: ID!, reviewText: String!, rating: Int): Review
   }
 `;
 

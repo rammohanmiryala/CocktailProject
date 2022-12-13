@@ -11,7 +11,7 @@ const Home = () => {
       <div className="flex-col justify-center">
         <SearchBar/>
       </div>
-
+<p> Type and letter from A to Z </p>
     </main>
   );
 };

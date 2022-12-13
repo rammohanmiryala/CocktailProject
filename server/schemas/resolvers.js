@@ -3,28 +3,30 @@ const { User, Review, Drink } = require("../models");
 const { signToken } = require("../utils/auth");
 
 const resolvers = {
+
+  // find each person with a name , selecting the name
   Query: {
-    users: async () => {
-      return User.find({});
-    },
-    reviews: async () => {
-      return Review.find({});
+    user: async (parent, { username }) => {
+      return await User.findOne({ username }).populate("drinks");
     },
 
-    drink: async () => {
-      return await Drink.find({});
+    drink: async (parent, {drinkId}) => {
+      return await Drink.findOne({ drinkId }).populate("reviews");
+    },
+
+    users: async () => {
+      return await User.find({}).populate("drinks").populate({
+        path: "drinks",
+        populate: "reviews",
+      });
     },
 
     drinks: async () => {
-      return Drink.find({}).populate("reviews");
+      return await Drink.find({}).populate("reviews");
     },
 
     reviews: async () => {
-      return Review.find({}).populate("reviews");
-    },
-
-    user: async (parent, { username }) => {
-      return User.findOne({ username }).populate("reviews");
+      return await Review.find({}).populate("reviews");
     },
   },
 

@@ -1,59 +1,28 @@
-import React, { useState } from 'react';
-import { useMutation } from '@apollo/client';
+import React, { useState } from "react";
+import { useMutation } from "@apollo/client";
 
-import { ADD_REVIEW } from '../../utils/mutations';
 
-const CommentForm = ({ thoughtId }) => {
-  const [commentText, setCommentText] = useState('');
-  const [characterCount, setCharacterCount] = useState(0);
 
-  const [addComment, { error }] = useMutation(ADD_REVIEW);
-
-  const handleFormSubmit = async (event) => {
-    event.preventDefault();
-
-    try {
-      const { data } = await addComment({
-        variables: { thoughtId, commentText },
-      });
-
-      setCommentText('');
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-
-    if (name === 'commentText' && value.length <= 280) {
-      setCommentText(value);
-      setCharacterCount(value.length);
-    }
-  };
+const ReviewForm = ({ thoughtId }) => {
+  const handleFormSubmit = () => {};
+  const handleChange = () => {};
+ 
 
   return (
     <div>
-      <h4>What are your thoughts on this thought?</h4>
-      <p
-        className={`m-0 ${
-          characterCount === 280 || error ? 'text-danger' : ''
-        }`}
-      >
-        Character Count: {characterCount}/280
-        {error && <span className="ml-2">Something went wrong...</span>}
-      </p>
+      <h5>Add review to drinks</h5>
+
       <form
         className="flex-row justify-center justify-space-between-md align-center"
         onSubmit={handleFormSubmit}
       >
         <div className="col-12 col-lg-9">
           <textarea
-            name="commentText"
+            name=""
             placeholder="Add your comment..."
-            value={commentText}
+            value={1}
             className="form-input w-100"
-            style={{ lineHeight: '1.5' }}
+            style={{ lineHeight: "1.5" }}
             onChange={handleChange}
           ></textarea>
         </div>
@@ -68,4 +37,4 @@ const CommentForm = ({ thoughtId }) => {
   );
 };
 
-export default CommentForm;
+export default ReviewForm;

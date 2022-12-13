@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "../../stylesheets/body.css";
 import Col from "react-bootstrap/Col";
-import Row from "react-bootstrap/Row";
 import Form from "react-bootstrap/Form";
 import SearchCard from "../SearchCard/SearchCard";
-import SingleReview from "../SingleReview/SingleReview";
 import { Container } from "@mui/system";
 
 const SearchBar = () => {
@@ -13,10 +11,10 @@ const SearchBar = () => {
 
   const SearchDrinks = async (e) => {
     e.preventDefault();
-    console.log(query);
+    
 
     const url = `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${query}`;
-    console.log(url);
+    
     try {
       const res = await fetch(url); // fetching the search
       const data = await res.json(); // covering the result to json format

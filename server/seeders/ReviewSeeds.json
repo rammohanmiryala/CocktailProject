@@ -1,42 +1,25 @@
 [
   {
     "reviewText": "Everyone knows that debugging is?",
-    "reviewAuthor": "dory",
+    "reviewAuthor": "elliot",
     "rating": 2
   },
   {
     "reviewText": "When you don't create things",
-    "reviewAuthor": "dory",
+    "reviewAuthor": "elliot",
     "rating": 3
   },
   {
     "reviewText": "I'm not a great programmer",
-    "reviewAuthor": "dory",
+    "reviewAuthor": "elliot",
     "rating": 1
   },
   {
     "reviewText": "Walking on water and",
-    "reviewAuthor": "dory",
-    "rating": 2
-  },
-  {
-    "reviewText": "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
-    "reviewAuthor": "elliot",
-    "rating": 4
-  },
-  {
-    "reviewText": "qui est esse",
     "reviewAuthor": "elliot",
     "rating": 2
-  },
-  {
-    "reviewText": "ea molestias quasi exercitationem repellat qui ipsa sit aut",
-    "reviewAuthor": "elliot",
-    "rating": 1
-  },
-  {
-    "reviewText": "ullam et saepe reiciendis voluptatem adipisci",
-    "reviewAuthor": "elliot",
-    "rating": 3
   }
 ]
+
+
+ 

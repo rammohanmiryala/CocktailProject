@@ -29,7 +29,19 @@ const userSchema = new Schema({
       ref: "Drink",
     },
   ],
+},
+{
+  toJSON: {
+    virtuals: true,
+  },
+  id: false,
 });
+
+// Create a virtual property `drinksCount` that gets the amount of drinks per post
+userSchema.virtual('drinksCount').get(function () {
+  return this.drinks.length;
+});
+
 
 userSchema.pre("save", async function (next) {
   if (this.isNew || this.isModified("password")) {
