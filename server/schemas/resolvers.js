@@ -1,16 +1,15 @@
 const { AuthenticationError } = require("apollo-server-express");
-const { User, Review, Drink } = require("../models");
+const { User, Drink } = require("../models");
 const { signToken } = require("../utils/auth");
 
 const resolvers = {
-
   // find each person with a name , selecting the name
   Query: {
     user: async (parent, { username }) => {
       return await User.findOne({ username }).populate("drinks");
     },
 
-    drink: async (parent, {drinkId}) => {
+    drink: async (parent, { drinkId }) => {
       return await Drink.findOne({ drinkId }).populate("reviews");
     },
 
@@ -24,9 +23,11 @@ const resolvers = {
     drinks: async () => {
       return await Drink.find({}).populate("reviews");
     },
-
-    reviews: async () => {
-      return await Review.find({}).populate("reviews");
+    me: async (parent, args, context) => {
+      if (context.user) {
+        return User.findOne({ _id: context.user._id }).populate("thoughts");
+      }
+      throw new AuthenticationError("You need to be logged in!");
     },
   },
 
@@ -54,17 +55,18 @@ const resolvers = {
 
       return { token, user };
     },
-    addReview: async (parent, { drinkId, reviewText, rating }, context) => {
+
+    addReview: async (
+      parent,
+      { drinksId, reviewText, reviewAuthor, rating },
+      context
+    ) => {
       if (context.user) {
         return Drink.findOneAndUpdate(
-          { _id: drinkId },
+          { drinksId },
           {
             $addToSet: {
-              reviews: {
-                reviewText,
-                rating,
-                reviewAuthor: context.user.username,
-              },
+              reviews: { reviewText, reviewAuthor, rating },
             },
           },
           {
@@ -74,6 +76,33 @@ const resolvers = {
         );
       }
       throw new AuthenticationError("You need to be logged in!");
+    },
+    removeReview: async (parent, { drinksId, reviewId }, context) => {
+      if (context.user) {
+        return Drink.findOneAndUpdate(
+          { drinksId },
+          {
+            $pull: {
+              reviews: {
+                _id: reviewId,
+                reviewAuthor: context.user.username,
+              },
+            },
+          },
+          { new: true }
+        );
+      }
+      throw new AuthenticationError("You need to be logged in!");
+    },
+
+    updateReview: async (_, { ID, reviewText }) => {
+      // Find and update the matching class using the destructured args
+      return await Drink.findOneAndUpdate(
+        { _id: ID },
+        { reviewText:reviewText  },
+        // Return the newly updated object instead of the original
+        { new: true }
+      );
     },
   },
 };
