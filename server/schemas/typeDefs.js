@@ -10,14 +10,14 @@ const typeDefs = gql`
   }
   type Drink {
     _id: ID
-    drinkId: Int
+    drinkId: Int!
     createdAt: String
     reviews: [Review]
   }
   type Review {
     _id: ID
-    reviewText: String
-    reviewAuthor: String
+    reviewText: String!
+    reviewAuthor: String!
     rating: Int
     createdAt: String
   }
@@ -27,28 +27,26 @@ const typeDefs = gql`
   }
 
   type Query {
+    user(username: String!, reviewAuthor: String): User
     users: [User]
-    user(username: String!): User
+    reviews: [Review]
     drinks: [Drink]
     drink(drinkId: Int!): Drink
-    review(reviewId: ID!): Drink
     me: User
   }
-
-
 
   type Mutation {
     addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
     addReview(
-      drinksId: Int!
+      drink_id: ID!
+      drinkId: Int!
       reviewText: String!
       reviewAuthor: String!
       rating: Int!
     ): Drink
     removeReview(drinksId: Int!, reviewId: ID!): Drink
-    updateReview(ID: ID!, reviewText: String): Drink
-    
+    updateReview(drinksId: Int!, reviewId: ID!, reviewText: String): Drink
   }
 `;
 

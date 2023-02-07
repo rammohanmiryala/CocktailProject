@@ -1,0 +1,93 @@
+[
+  {
+    "username": "elliot",
+    "email": "elliot@email.com",
+    "password": "password01",
+
+    "drinks": [
+      {
+        "drinkId": 17222,
+
+        "reviews": [
+          {
+            "reviewText": "Everyone knows that debugging is?",
+            "reviewAuthor": "elliot",
+            "rating": 2
+          },
+          {
+            "reviewText": "When you don't create things",
+            "reviewAuthor": "elliot",
+            "rating": 3
+          },
+          {
+            "reviewText": "I'm not a great programmer",
+            "reviewAuthor": "elliot",
+            "rating": 1
+          },
+          {
+            "reviewText": "Walking on water and",
+            "reviewAuthor": "elliot",
+            "rating": 2
+          }
+        ]
+      },
+
+      {
+        "drinkId": 13501,
+        "reviews": [
+          {
+            "reviewText": "sjdfksd ilusduflsudf ",
+            "reviewAuthor": "elliot",
+            "rating": 2
+          }
+        ]
+      }
+    ]
+  },
+
+  {
+    "username": "ram",
+    "email": "ram@email.com",
+    "password": "password01",
+
+    "drinks": [
+      {
+        "drinkId": 17222,
+
+        "reviews": [
+          {
+            "reviewText": " that debugging is?",
+            "reviewAuthor": "ram",
+            "rating": 2
+          },
+          {
+            "reviewText": "create things",
+            "reviewAuthor": "ram",
+            "rating": 3
+          },
+          {
+            "reviewText": "great programmer",
+            "reviewAuthor": "ram",
+            "rating": 1
+          },
+          {
+            "reviewText": " water and",
+            "reviewAuthor": "ram",
+            "rating": 2
+          }
+        ]
+      },
+
+      {
+        "drinkId": 13501,
+        "reviews": [
+          {
+            "reviewText": "fghfghfgh ",
+            "reviewAuthor": "ram",
+            "rating": 2
+          }
+        ]
+      }
+    ]
+  }
+]
