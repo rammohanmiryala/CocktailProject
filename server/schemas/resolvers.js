@@ -4,17 +4,15 @@ const { signToken } = require("../utils/auth");
 const _ = require("lodash");
 
 const resolvers = {
-  
   Query: {
     users: async () => {
       return await User.find({}).populate({
         path: "drinks",
         populate: { path: "reviews" },
-        
       });
     },
 
-    user: async (parent, { username}) => {
+    user: async (parent, { username }) => {
       return await User.findOne({ username }).populate({
         path: "drinks",
         populate: {
@@ -40,6 +38,13 @@ const resolvers = {
         return User.findOne({ _id: context.user._id }).populate("drinks");
       }
       throw new AuthenticationError("You need to be logged in!");
+    },
+  },
+  User: {
+    drinks: {
+      reviews: ({ username }) => {
+        return Review.find((reviews) => reviews.reviewAuthor === { username });
+      },
     },
   },
 
@@ -83,14 +88,12 @@ const resolvers = {
         { $addToSet: { reviews: reviewDate._id } },
         { new: true }
       );
-      console.log(drinkData.reviews.reviewAuthor)
+      console.log(drinkData.reviews.reviewAuthor);
       // await User.findOneAndUpdate(
       //   { username :},
       //   { $addToSet: { reviews: reviewDate._id } },
       //   { new: true }
       // );
-
-      
     },
   },
 };

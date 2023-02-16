@@ -6,20 +6,23 @@ const typeDefs = gql`
     username: String!
     email: String!
     userType: Boolean
-    drinks: [Drink]
+    drinks: [Drink] 
+    # user comments on many drinks 
   }
   type Drink {
     _id: ID
     drinkId: Int!
     createdAt: String
     reviews: [Review]
+    # drinks can have many drinks 
   }
   type Review {
     _id: ID
     reviewText: String!
-    reviewAuthor: String!
+    reviewAuthor: String! # username and reviewauthor is same as user
     rating: Int
     createdAt: String
+    
   }
   type Auth {
     token: ID!
@@ -27,7 +30,7 @@ const typeDefs = gql`
   }
 
   type Query {
-    user(username: String!, reviewAuthor: String): User
+    user(username: String!): User
     users: [User]
     reviews: [Review]
     drinks: [Drink]
